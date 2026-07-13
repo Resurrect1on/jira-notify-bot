@@ -1,0 +1,78 @@
+[tool.poetry]
+name = "jira-bot"
+version = "1.1.4"
+description = "Jira-Bot Notification Helper"
+authors = ["Dmitry Ivakhnenko <divakhnenko@example.ru>"]
+readme = "README.md"
+packages = [{ include = "src" }]
+package-mode = false
+
+[tool.poetry.dependencies]
+asgi-correlation-id = "^4.3.4"
+backoff = "^2.2.1"
+fastapi = "^0.116.0"
+httpx = "^0.28.1"
+itsdangerous = "^2.2.0"
+orjson = "^3.10.16"
+pydantic =  { version = "^2.10.0", extras = ["email"] }
+pydantic-settings = "^2.8.1"
+python = "^3.13"
+structlog = "^25.2.0"
+uvicorn = "^0.34.0"
+
+[tool.mypy]
+disable_error_code = "prop-decorator"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning:botocore.*"
+]
+testpaths = ["tests/"]
+markers = [
+    "integration: для запуска интеграционных тестов (убрать можно с помощью флага '-m \"not integration\"')",
+    "asyncio: запуск асинхронных тестов",
+    "e2e: запуск end-to-end тестов по одному из пользовательских процессов"
+]
+disable_test_id_escaping_and_forfeit_all_rights_to_community_support = true
+
+[tool.pylint.main]
+# Путь до исходников
+init-hook = 'import sys; sys.path.append("src")'
+[tool.pylint.'MESSAGES CONTROL']
+# Глобально ничего не отключаем, пусть pylint строгий
+disable = []
+# Отдельная секция для тестов
+[tool.pylint.'MESSAGES CONTROL.tests']
+# В тестах отключаем только самое мешающее
+disable = [
+    "no-member",         # у Mock/AsyncMock "нет" return_value, assert_awaited_once и т.д.
+    "protected-access",  # в тестах часто лезем в _приватные методы
+    "assignment-from-no-return"
+]
+[tool.pylint.ignore-paths]
+# Полностью игнорируем сообщения из tests/
+tests = ["tests/.*\\.py"]
+
+[tool.poetry.group.dev.dependencies]
+mypy = "*"
+pylint = "*"
+flake8 = "*"
+autopep8 = "*"
+
+[tool.poetry.group.lint.dependencies]
+mypy = "^1.15.0"
+pre-commit = "^4.1.0"
+ruff = "^0.12.8"
+isort = "^6.0.1"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^9.0.0"
+pytest-asyncio = "^1.1.0"
+pytest-cov = "^7.0.0"
+pytest-dotenv = "^0.5.2"
+pytest-mock = "^3.14.0"
+pytest-xdist = "^3.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
