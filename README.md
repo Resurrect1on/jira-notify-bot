@@ -79,5 +79,7 @@ poetry run pytest --cov-report=html --cov .
 ## Полезные материалы
 
 [Poetry: руководство по инструменту](https://python-poetry.org/docs/basic-usage/)
+
 [FastAPI: руководство по инструменту](https://fastapi.tiangolo.com)
+
 [PyTest: руководство по инструменту](https://docs.pytest.org/en/stable/contents.html)
