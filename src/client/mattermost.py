@@ -2,7 +2,7 @@ import httpx
 from pydantic import BaseModel
 from structlog import get_logger
 
-from src.client import http_client
+from src.client.http import http_client
 from src.core.config import settings
 from src.core.constants import ProjectName
 from src.core.exceptions import MattermostTransportError
@@ -23,6 +23,7 @@ class MattermostClient:
         ProjectName.EX: settings.ex_url,
         ProjectName.WB: settings.wb_url,
         ProjectName.CLIENT_VOICE: settings.client_voice_url,
+        ProjectName.SUPP_CSAT: settings.support_csat_project_hook,
     }
 
     async def post(self, project_name: ProjectName, obj_in: BaseModel, **kwargs) -> httpx.Response:
@@ -44,7 +45,7 @@ class MattermostClient:
             return response
 
     def _get_project_url(self, project_name: ProjectName) -> HttpStr:
-        """Метод определяет корректную ссылку до проекта"""
+        """Метод возвращает корректную ссылку до проекта"""
 
         project_url = self._PROJECT_URL_MAPPING.get(project_name)
         if not project_url:

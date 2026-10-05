@@ -10,6 +10,7 @@ from src.schemas.support_project import (
     SupportCommentSchema,
     SupportCreatedTaskSchema,
     SupportReOpenSchema,
+    SupportSatisfactionSchema,
 )
 from src.schemas.suzi_project import SuziCommentSchema, SuziDevUpdateTaskSchema
 from src.schemas.wb_project import (
@@ -31,6 +32,7 @@ __all__ = [
     "SupportCommentSchema",
     "SupportCreatedTaskSchema",
     "SupportReOpenSchema",
+    "SupportSatisfactionSchema",
     "SuziCommentSchema",
     "SuziDevUpdateTaskSchema",
     "WildberriesAssignerSchema",

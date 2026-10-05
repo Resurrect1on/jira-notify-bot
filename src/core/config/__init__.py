@@ -22,6 +22,7 @@ class Settings(BaseSettingsConfig):
 
     support_project_hook: Annotated[str, Field(description="Уникальный идентификатор интеграции с чатом SUPPORT")]
     support_dev_project_hook: Annotated[str, Field(description="Уникальный идентификатор интеграции с чатом SUPP-DEV")]
+    support_csat_project_hook: Annotated[str, Field(description="Уник. идентификатор интеграции с чатом SUPP-CSAT")]
     suzi_project_hook: Annotated[str, Field(description="Уникальный идентификатор интеграции с чатом SUZI")]
     ex_project_hook: Annotated[str, Field(description="Уникальный идентификатор интеграции с чатом EXPLOITATION")]
     wb_project_hook: Annotated[str, Field(description="Уникальный идентификатор интеграции с чатом WILDBERRIES")]
@@ -37,6 +38,11 @@ class Settings(BaseSettingsConfig):
     @property
     def support_dev_url(self) -> HttpStr:
         return HttpStr(f"{self.mattermost_url}/{self.support_dev_project_hook}")
+
+    @computed_field(description="Ссылка до интеграции с проектом SUPP-CSAT")
+    @property
+    def support_csat_url(self) -> HttpStr:
+        return HttpStr(f"{self.mattermost_url}/{self.support_csat_project_hook}")
 
     @computed_field(description="Ссылка до интеграции с проектом SUZI")
     @property
