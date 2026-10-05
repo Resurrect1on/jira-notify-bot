@@ -2,9 +2,15 @@ from fastapi import APIRouter, status
 from structlog import get_logger
 
 from src.client.mattermost import mm_client
-from src.core.constants import ActionType, HTTPErrorDetail, ProjectName
+from src.core.constants import CSAT_SCORE_TO_SEND_NOTIFY, ActionType, HTTPErrorDetail, ProjectName
 from src.core.route_class import ContextVarsRouterHandler
-from src.schemas import SupportAssignerSchema, SupportCommentSchema, SupportCreatedTaskSchema, SupportReOpenSchema
+from src.schemas import (
+    SupportAssignerSchema,
+    SupportCommentSchema,
+    SupportCreatedTaskSchema,
+    SupportReOpenSchema,
+    SupportSatisfactionSchema,
+)
 from src.utils.make_response import make_response
 
 router = APIRouter(route_class=ContextVarsRouterHandler)
@@ -64,4 +70,19 @@ async def listen_to_reopened_task(obj_in: SupportReOpenSchema) -> SupportReOpenS
     await mm_client.post(project_name=ProjectName.SUPP, obj_in=obj_in)
 
     logger.info("Сообщение в MM успешно отправлено", project_name=ProjectName.SUPP, action=ActionType.TASK_REOPENED)
+    return obj_in
+
+
+@router.post(f"/{ActionType.ADDED_CSAT_SATISFACTION}", status_code=status.HTTP_200_OK, responses={})
+async def listen_to_user_reviews(obj_in: SupportSatisfactionSchema) -> SupportSatisfactionSchema:
+    """Эндпоинт для уведомлений об удовлетворённости пользователей в проекте `SUPP` - `CSAT`"""
+
+    if obj_in.score <= CSAT_SCORE_TO_SEND_NOTIFY:
+        await mm_client.post(project_name=ProjectName.SUPP_CSAT, obj_in=obj_in)
+        logger.info(
+            "Сообщение в MM успешно отправлено",
+            project_name=ProjectName.SUPP_CSAT,
+            action=ActionType.ADDED_CSAT_SATISFACTION,
+        )
+
     return obj_in

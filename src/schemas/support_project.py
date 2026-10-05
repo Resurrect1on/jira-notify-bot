@@ -1,7 +1,7 @@
 from pydantic import computed_field
 
 from src.core.constants import Description
-from src.schemas.base_mixin import TicketAssignerBaseSchema, TicketTopicAuthorBaseSchema
+from src.schemas.base_mixin import TicketAssignerBaseSchema, TicketSatisfactionBaseSchema, TicketTopicAuthorBaseSchema
 from src.utils import make_hyperlink
 
 
@@ -49,3 +49,16 @@ class SupportReOpenSchema(TicketAssignerBaseSchema, TicketTopicAuthorBaseSchema)
             f"**Автор**: ```{self.author}```\n"
             f"@{self.assigner}"
         )
+
+
+class SupportSatisfactionSchema(TicketSatisfactionBaseSchema):
+    """
+    Схема для хранения информации об оценка и комментарии пользователя в проекте `SUPP` - `CSAT`
+
+    Args:
+        `issue` (str): Номер задачи
+        `score` (int): Оценка пользователя
+        `comment` (str | None): Текстовый комментарий пользователя
+    """
+
+    pass
