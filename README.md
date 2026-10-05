@@ -19,6 +19,8 @@
   "SUZI_PROJECT_HOOK": "Интеграционный хук до чата проекта SUZI",
   "MONITORING_HOOK": "Интеграционный хук до чата проекта Monitoring",
   "SUPPORT_PROJECT_HOOK": "Интеграционный хук до чата проекта Support",
+  "SUPPORT_DEV_PROJECT_HOOK": "Интеграционный хук до чата проекта Support-DEV",
+  "SUPPORT_CSAT_PROJECT_HOOK": "Интеграционный хук до чата проекта Support-CSAT",
   "EX_PROJECT_HOOK": "Интеграционный хук до чата проекта Exploitation",
   "WB_PROJECT_HOOK": "Интеграционный хук до чата проекта WB (SZO)",
   "CLIENT_VOICE_HOOK": "Интеграционный хук до чата проекта CLIENT-VOICE (SZO)",
