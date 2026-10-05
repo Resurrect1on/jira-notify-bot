@@ -23,7 +23,7 @@ class MattermostClient:
         ProjectName.EX: settings.ex_url,
         ProjectName.WB: settings.wb_url,
         ProjectName.CLIENT_VOICE: settings.client_voice_url,
-        ProjectName.SUPP_CSAT: settings.support_csat_project_hook,
+        ProjectName.SUPP_CSAT: settings.support_csat_url,
     }
 
     async def post(self, project_name: ProjectName, obj_in: BaseModel, **kwargs) -> httpx.Response:

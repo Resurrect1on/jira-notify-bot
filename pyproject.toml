@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jira-bot"
-version = "1.1.4"
+version = "1.2.1"
 description = "Jira-Bot Notification Helper"
 authors = ["Dmitry Ivakhnenko <divakhnenko@example.ru>"]
 readme = "README.md"
