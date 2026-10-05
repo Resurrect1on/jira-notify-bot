@@ -4,7 +4,7 @@ from typing import Annotated
 from pydantic import Field, computed_field
 
 from src.core.constants import Description
-from src.schemas.base_mixin import TicketBaseSchema
+from src.schemas.base_mixin import TicketBaseSchema, TicketSatisfactionBaseSchema
 from src.utils import make_hyperlink
 
 
@@ -80,24 +80,14 @@ class ClientVoiceModifiedTaskSchema(ClientVoiceBaseSchema):
         )
 
 
-class ClientVoiceSatisfactionSchema(TicketBaseSchema):
+class ClientVoiceSatisfactionSchema(TicketSatisfactionBaseSchema):
     """
     Схема для хранения информации об оценка и комментарии пользователя в проекте `SZO` - `Client voice`
 
     Args:
         `issue` (str): Номер задачи
         `score` (int): Оценка пользователя
-        `comment` (str): Текстовый комментарий пользователя
+        `comment` (str | None): Текстовый комментарий пользователя
     """
 
-    score: Annotated[int, Field(description=Description.CSAT_SCORE)]
-    comment: Annotated[str | None, Field(description=Description.CSAT_COMMENT)] = None
-
-    @computed_field(description=Description.NOTIFY_TEXT)
-    @property
-    def notify_text(self) -> str:
-        return (
-            f"Уведомление о низкой оценке удовлетворенности: {make_hyperlink(self.issue)}.\n\n"
-            f"**Оценка пользователя**: ```{self.score}```\n"
-            # f"**Комментарий пользователя**: ```{self.comment or '-'}```"
-        )
+    pass
