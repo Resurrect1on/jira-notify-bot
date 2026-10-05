@@ -6,6 +6,14 @@ CSAT_SCORE_TO_SEND_NOTIFY = 2
 DAYS_WITHOUT_UPDATE_TRIGGER = 5
 
 
+class RequestMethodName(StrEnum):
+    """Название метода для API запросов"""
+
+    GET = "GET"
+    POST = "POST"
+    PATCH = "PATCH"
+
+
 class Weekday(IntEnum):
     """Дни недели"""
 
@@ -37,6 +45,7 @@ class ProjectName(StrEnum):
     MONITOR = "monitoring"
     SUPP = "support"
     SUPP_DEV = "support-dev"
+    SUPP_CSAT = "support-csat"
     SUZI = "suzi"
     WB = "wildberries"
 
